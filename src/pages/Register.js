@@ -6,7 +6,6 @@ const Register = () => {
   const [username, setUserame] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
 
   const handleName = (e) => {
     setUserame(e.target.value);
@@ -17,15 +16,17 @@ const Register = () => {
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
-  const handleRole = (e) => {
-    setRole(e.target.value);
-  };
 
   const dispatch = useDispatch();
 
   const registHandle = (e) => {
     e.preventDefault();
-    dispatch(signUpUser(username, email, password));
+    const user = {
+      username: username,
+      email: email,
+      password: password,
+    };
+    dispatch(signUpUser(user));
   };
 
   return (
@@ -35,7 +36,7 @@ const Register = () => {
         <div className="flex flex-col">
           <label htmlFor="">Username</label>
           <input
-            type="name"
+            type="text"
             placeholder="Username"
             value={username}
             onChange={handleName}
@@ -59,16 +60,6 @@ const Register = () => {
             placeholder="Password"
             value={password}
             onChange={handlePassword}
-            className="visible bg-transparent border rounded-md py-3 px-4 text-black leading-5 focus:outline-none focus:ring-2 focus:ring-light-blue-300"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="">Role</label>
-          <input
-            type="text"
-            placeholder="Role"
-            value={role}
-            onChange={handleRole}
             className="visible bg-transparent border rounded-md py-3 px-4 text-black leading-5 focus:outline-none focus:ring-2 focus:ring-light-blue-300"
           />
         </div>

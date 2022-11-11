@@ -1,32 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   ms: "",
-  user: "",
-  token: "",
+  username: "",
+  accessToken: "",
   loading: false,
   error: "error",
 };
 
 export const signUpUser = createAsyncThunk("signupuser", async (body) => {
-  const res = await fetch("http://localhost:8080/api/auth/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+  const res = await axios.post("http://localhost:8081/api/auth/signup", body);
   return await res.json();
 });
 
 export const signInUser = createAsyncThunk("signinuser", async (body) => {
-  const res = await fetch("http://localhost:8080/api/auth/signin", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+  const res = await axios.post("http://localhost:8081/api/auth/signin", body);
   return await res.json();
 });
 
@@ -51,19 +40,19 @@ const authSlice = createSlice({
     },
     [signInUser.fulfilled]: (
       state,
-      { payload: { error, msg, token, user } }
+      { payload: { error, msg, accessToken, username } }
     ) => {
       state.loading = false;
       if (error) {
         state.error = error;
       } else {
         state.msg = msg;
-        state.token = token;
-        state.user = user;
+        state.token = accessToken;
+        state.user = username;
 
         localStorage.setItem("msg", msg);
-        localStorage.setItem("username", JSON.stringify(user));
-        localStorage.setItem("accessToken", token);
+        localStorage.setItem("username", JSON.stringify(username));
+        localStorage.setItem("accessToken", JSON.stringify(accessToken));
       }
     },
     [signInUser.rejected]: (state, action) => {

@@ -4,11 +4,11 @@ import { signInUser } from "../features/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Logins = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUserame] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
+  const handleUsername = (e) => {
+    setUserame(e.target.value);
   };
   const handlePassword = (e) => {
     setPassword(e.target.value);
@@ -18,7 +18,11 @@ const Logins = () => {
   const navigate = useNavigate();
   const loginHandle = (e) => {
     e.preventDefault();
-    dispatch(signInUser(email, password));
+    const user = {
+      username: username,
+      password: password,
+    };
+    dispatch(signInUser(user));
   };
 
   return (
@@ -29,16 +33,16 @@ const Logins = () => {
           <label htmlFor="">Email</label>
           <input
             type="text"
-            placeholder="Email"
-            value={email}
-            onChange={handleEmail}
+            placeholder="Username"
+            value={username}
+            onChange={handleUsername}
             className="visible bg-transparent border rounded-md py-3 px-4 text-black leading-5 focus:outline-none focus:ring-2 focus:ring-light-blue-300"
           />
         </div>
         <div className="flex flex-col">
           <label htmlFor="">Password</label>
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             value={password}
             onChange={handlePassword}
