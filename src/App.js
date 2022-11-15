@@ -3,6 +3,7 @@ import Compro from "./pages/Compro";
 import Dashboard from "./pages/Dashboard";
 import Logins from "./pages/Logins";
 import Register from "./pages/Register";
+import ProtectedRoute from "./routes/protectedRoutes";
 
 function App() {
   return (
@@ -12,10 +13,14 @@ function App() {
           <Route index element={<Compro />} />
           <Route path="/login" element={<Logins />} />
           <Route path="/register" element={<Register />} />
-
-          <Route path="dashboard">
-            <Route index element={<Dashboard />} />
-          </Route>
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
         </Route>
       </Routes>
     </div>

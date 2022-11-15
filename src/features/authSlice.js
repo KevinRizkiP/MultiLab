@@ -1,33 +1,34 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
-  ms: '',
-  username: '',
-  accessToken: '',
+  ms: "",
+  username: "",
+  isAuthorized: false,
+  accessToken: "",
   loading: false,
-  error: 'error',
+  error: "error",
 };
 
-export const signUpUser = createAsyncThunk('signupuser', async (body) => {
-  const res = await axios.post('http://localhost:8081/api/auth/signup', body);
-  return await res.json();
+export const signUpUser = createAsyncThunk("signupuser", async (body) => {
+  const res = await axios.post("http://localhost:8081/api/auth/signup", body);
+  return res.data;
 });
 
-export const signInUser = createAsyncThunk('signinuser', async (body) => {
-  const res = await axios.post('http://localhost:8081/api/auth/signin', body);
-  return await res.json();
+export const signInUser = createAsyncThunk("signinuser", async (body) => {
+  const res = await axios.post("http://localhost:8081/api/auth/signin", body);
+  return res.data;
 });
 
 const authSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     addToken: (state, action) => {
-      state.token = localStorage.getItem('accessToken');
+      state.token = sessionStorage.getItem("accessToken");
     },
     addUser: (state, action) => {
-      state.user = localStorage.getItem('username');
+      state.user = sessionStorage.getItem("username");
     },
     logOut: (state, action) => {
       state.token = null;
@@ -38,19 +39,14 @@ const authSlice = createSlice({
     [signInUser.pending]: (state, action) => {
       state.loading = true;
     },
-    [signInUser.fulfilled]: (state, { payload: { error, msg, accessToken, username } }) => {
+    [signInUser.fulfilled]: (state, { payload: { accessToken, username } }) => {
       state.loading = false;
-      if (error) {
-        state.error = error;
-      } else {
-        state.msg = msg;
-        state.token = accessToken;
-        state.user = username;
+      state.isAuthorized = true;
+      state.accessToken = accessToken;
+      state.username = username;
 
-        localStorage.setItem('msg', msg);
-        localStorage.setItem('username', JSON.stringify(username));
-        localStorage.setItem('accessToken', JSON.stringify(accessToken));
-      }
+      sessionStorage.setItem("username", JSON.stringify(username));
+      sessionStorage.setItem("accessToken", JSON.stringify(accessToken));
     },
     [signInUser.rejected]: (state, action) => {
       state.loading = true;
