@@ -14,7 +14,7 @@ const Logins = () => {
     setPassword(e.target.value);
   };
 
-  const isAuthorized = useSelector((state) => state.authSlice);
+  const { isAuthorized } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,10 +27,13 @@ const Logins = () => {
     dispatch(signInUser(user));
     setUserame("");
     setPassword("");
+  };
+
+  useEffect(() => {
     if (isAuthorized) {
       navigate("/dashboard");
     }
-  };
+  }, [isAuthorized]);
 
   return (
     <div>
