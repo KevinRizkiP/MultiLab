@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Navbar from "../components/Navbar";
 
 const Compro = () => {
   return (
-    <div>Compro</div>
-  )
-}
+    <div>
+      <Navbar />
+    </div>
+  );
+};
 
-export default Compro
+export default Compro;

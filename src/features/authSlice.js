@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   username: "",
+  email: "",
   isAuthorized: false,
   accessToken: "",
   loading: false,
@@ -23,10 +24,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     addToken: (state, action) => {
-      state.token = sessionStorage.getItem("accessToken");
-    },
-    addUser: (state, action) => {
-      state.user = sessionStorage.getItem("username");
+      state.token = localStorage.getItem("accessToken");
     },
     logOut: (state, action) => {
       state.token = null;
@@ -37,14 +35,19 @@ const authSlice = createSlice({
     [signInUser.pending]: (state, action) => {
       state.loading = true;
     },
-    [signInUser.fulfilled]: (state, { payload: { accessToken, username } }) => {
+    [signInUser.fulfilled]: (
+      state,
+      { payload: { accessToken, username, email } }
+    ) => {
       state.loading = false;
       state.isAuthorized = true;
       state.accessToken = accessToken;
       state.username = username;
+      state.email = email;
 
-      sessionStorage.setItem("username", JSON.stringify(username));
-      sessionStorage.setItem("accessToken", JSON.stringify(accessToken));
+      
+      localStorage.setItem("items", JSON.stringify({username,email}));
+      localStorage.setItem("accessToken", JSON.stringify(accessToken));
     },
     [signInUser.rejected]: (state, action) => {
       state.loading = true;
@@ -62,5 +65,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { addToken, addUser, logOut } = authSlice.actions;
+export const { addToken, logOut } = authSlice.actions;
 export default authSlice.reducer;
