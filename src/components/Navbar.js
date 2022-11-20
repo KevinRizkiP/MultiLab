@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose } from "react-icons/gr";
 
-
-const stickyNav = "w-full";
+const stickyNav = "w-full font-sans";
 const twNav =
-  "hidden lg:flex lg:w-full mx-auto items-center font-bold text-lg py-4 px-24";
+  "hidden lg:flex lg:w-full mx-auto items-center justify-center text-center text-lg py-4 px-64";
 const twMobileNav = "flex mx-auto justify-between px-4 py-2";
 const twUlNavMobile = "flex flex-col w-full";
 const twLiNavMobile =
@@ -15,8 +14,6 @@ const twLiNavMobile =
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [effect, setEffect] = useState(false);
-
-  
 
   return (
     <>
@@ -58,7 +55,7 @@ const Navbar = () => {
                 to=""
                 className="active hover:border-b-2 hover:border-black"
               >
-                Activity
+                Announcement
               </Link>
             </li>
             <li className="cursor-pointer">
@@ -81,7 +78,7 @@ const Navbar = () => {
               to="/login"
               className="bg-zinc-800 px-12 py-4 rounded-full font-bold text-white"
             >
-              Sign In
+              Login
             </Link>
           </div>
         </div>
@@ -261,7 +258,7 @@ const Navbar = () => {
                       setIsOpen(false);
                     }}
                   >
-                    Activity
+                    Announcement
                   </Link>
                   <hr
                     className="mt-2"
@@ -307,7 +304,7 @@ const Navbar = () => {
                     to="/login"
                     className="bg-zinc-800 px-12 py-4 rounded-full font-bold text-white"
                   >
-                    Sign In
+                    Login
                   </Link>
                 </div>
               </ul>

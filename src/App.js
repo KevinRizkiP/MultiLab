@@ -2,7 +2,7 @@ import Routing from "./routes/Routing";
 
 function App() {
   return (
-    <div className="">
+    <div className="font-sans">
       <Routing />
     </div>
   );
