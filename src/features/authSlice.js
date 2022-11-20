@@ -24,10 +24,15 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     addToken: (state, action) => {
-      state.token = localStorage.getItem("accessToken");
+      state.accessToken = localStorage.getItem("accessToken");
     },
     logOut: (state, action) => {
-      state.token = null;
+      state.loading = true;
+      state.isAuthorized = false;
+      state.username = null;
+      state.email = null;
+      state.accessToken = null;
+      localStorage.removeItem("persist:root");
       localStorage.clear();
     },
   },
@@ -45,8 +50,7 @@ const authSlice = createSlice({
       state.username = username;
       state.email = email;
 
-      
-      localStorage.setItem("items", JSON.stringify({username,email}));
+      localStorage.setItem("items", JSON.stringify({ username, email }));
       localStorage.setItem("accessToken", JSON.stringify(accessToken));
     },
     [signInUser.rejected]: (state, action) => {

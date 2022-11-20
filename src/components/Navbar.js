@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose } from "react-icons/gr";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { signUpUser } from "../features/authSlice";
+
 
 const stickyNav = "w-full";
 const twNav =
@@ -18,14 +16,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [effect, setEffect] = useState(false);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const logout = (e) => {
-    e.preventDefault();
-    dispatch(signUpUser());
-    navigate("/");
-  };
+  
 
   return (
     <>
@@ -79,31 +70,20 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          {localStorage.getItem("accessToken") ? (
-            <div className="flex-none items-center justify-between gap-10">
-              <button
-                onClick={logout}
-                className="bg-zinc-800 px-12 py-4 rounded-full font-bold text-white"
-              >
-                Log Out
-              </button>
-            </div>
-          ) : (
-            <div className="flex-none items-center justify-between gap-10">
-              <Link
-                to="/register"
-                className="active hover:border-b-2 hover:border-black mx-10"
-              >
-                Sign Up
-              </Link>
-              <Link
-                to="/login"
-                className="bg-zinc-800 px-12 py-4 rounded-full font-bold text-white"
-              >
-                Sign In
-              </Link>
-            </div>
-          )}
+          <div className="flex-none items-center justify-between gap-10">
+            <Link
+              to="/register"
+              className="active hover:border-b-2 hover:border-black mx-10"
+            >
+              Sign Up
+            </Link>
+            <Link
+              to="/login"
+              className="bg-zinc-800 px-12 py-4 rounded-full font-bold text-white"
+            >
+              Sign In
+            </Link>
+          </div>
         </div>
         <div className="lg:hidden">
           <div className={twMobileNav}>
@@ -316,31 +296,20 @@ const Navbar = () => {
                     }}
                   />
                 </li>
-                {localStorage.getItem("accessToken") ? (
-                  <div className={twLiNavMobile}>
-                    <button
-                      onClick={logout}
-                      className="bg-zinc-800 px-12 py-4 rounded-full font-bold text-white"
-                    >
-                      Log Out
-                    </button>
-                  </div>
-                ) : (
-                  <div className={twLiNavMobile}>
-                    <Link
-                      to="/register"
-                      className="active hover:border-b-2 hover:border-black mx-10 mb-5"
-                    >
-                      Sign Up
-                    </Link>
-                    <Link
-                      to="/login"
-                      className="bg-zinc-800 px-12 py-4 rounded-full font-bold text-white"
-                    >
-                      Sign In
-                    </Link>
-                  </div>
-                )}
+                <div className={twLiNavMobile}>
+                  <Link
+                    to="/register"
+                    className="active hover:border-b-2 hover:border-black mx-10 mb-5"
+                  >
+                    Sign Up
+                  </Link>
+                  <Link
+                    to="/login"
+                    className="bg-zinc-800 px-12 py-4 rounded-full font-bold text-white"
+                  >
+                    Sign In
+                  </Link>
+                </div>
               </ul>
             </div>
           </article>
