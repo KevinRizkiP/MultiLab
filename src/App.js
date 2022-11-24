@@ -1,8 +1,8 @@
-import Routing from "./routes/Routing";
+import Routing from './routes/Routing';
 
 function App() {
   return (
-    <div className="font-sans">
+    <div className='font-poppins'>
       <Routing />
     </div>
   );
