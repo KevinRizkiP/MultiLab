@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Cards = () => {
+  // Use Effect AOS
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <>
-      <div className='w-full flex gap-5 items-center px-64 justify-center'>
+      <div data-aos='fade-left' data-aos-easing='ease-in-out' data-aos-delay='300' className='w-full flex gap-5 items-center px-64 justify-center'>
         <div className='w-full'>
           <h1 className='text-black font-bold text-right tracking-wide text-3xl'>Angkatan 2019</h1>
           <h2 className='text-xl text-right text-gray-400 '>MULTIMEDIA LABORATORY ASSISTANT</h2>
@@ -66,7 +72,7 @@ const Cards = () => {
         </div>
       </div>
       {/* 2020 */}
-      <div className='w-full flex gap-5 items-center px-64 justify-center'>
+      <div data-aos='fade-right' data-aos-easing='ease-in-out' data-aos-delay='300' className='w-full flex gap-5 items-center px-64 justify-center'>
         <div className='w-full bg-gray-100 bg-opacity-50 mt-20'>
           <Swiper slidesPerView={3} onSlideChange={() => console.log('slide change')} onSwiper={(swiper) => console.log(swiper)}>
             <SwiperSlide>

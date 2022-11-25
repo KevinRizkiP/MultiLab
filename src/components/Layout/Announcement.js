@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 const Announcement = () => {
+  // Use Effect AOS
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <>
-      <div id='announcementSection' className='px-64 mt-40 mb-40'>
+      <div data-aos='zoom-out-up' data-aos-delay='400' id='announcementSection' className='px-64 mt-40 mb-40'>
         <div className='bg-zinc-800 text-white p-10 justify-center items-center rounded-xl'>
           <h1 className='text-4xl font-bold text-center'>Announcement</h1>
           <div className='flex justify-center items-center gap-10 mt-20'>
